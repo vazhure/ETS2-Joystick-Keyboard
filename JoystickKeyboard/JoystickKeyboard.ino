@@ -24,7 +24,7 @@ enum BTN_TYPE { ACTUAL_PUSH_STATE,
 #define PIN_CNT 18
 // Delay between push and release
 #define CLICK_DELAY 100
-// User input deley to detect short push
+// User input delay to detect short push
 #define SHORT_PUSH_MS 500
 // Delay used to turn off blinker (lazy turn indicator mode)
 #define RELEASE_DELAY_TIME 5000
@@ -35,12 +35,14 @@ enum BTN_TYPE { ACTUAL_PUSH_STATE,
 #else
 #include <Joystick.h>
 #define SET_BUTTON(idx, value) Joystick.setButton(idx, value)
+
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_GAMEPAD,
                    PIN_CNT, 0,            // Button Count, Hat Switch Count
                    false, false, false,   // X and Y, but no Z Axis
                    false, false, false,   // No Rx, Ry, or Rz
                    false, false,          // No rudder or throttle
                    false, false, false);  // No accelerator, brake, or steering
+
 #define KEY_LEFT_ARROW 0xD8
 #define KEY_RIGHT_ARROW 0xD7
 #define KEY_UP_ARROW 0xDA
@@ -60,14 +62,17 @@ struct Button {
   char key;
 
   inline void Debounce() {
-    //    buttonState = READ_PIN(pin);
-    int state = READ_PIN(pin);
-    if (state) {
-      if (debounce == 32768) buttonState = HIGH;
-      else debounce <<= 1;
-    } else {
-      if (debounce == 1) buttonState = LOW;
-      else debounce >>= 1;
+    if (debounce == 0)
+      buttonState = READ_PIN(pin);
+    else {
+      int state = READ_PIN(pin);
+      if (state) {
+        if (debounce == 32768) buttonState = HIGH;
+        else debounce <<= 1;
+      } else {
+        if (debounce == 1) buttonState = LOW;
+        else debounce >>= 1;
+      }
     }
   }
 
