@@ -53,8 +53,8 @@ Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_GAMEPAD,
 #define KEY_UP_ARROW 0xDA
 #define KEY_DOWN_ARROW 0xD9
 
-#define WIPER_FORWARD 0
-#define WIPER_BACK 7
+#define WIPER_FORWARD 4  //(index of btn)
+#define WIPER_BACK 5     //(index of btn)
 #endif
 
 byte _wiperSpeed = 0;
@@ -209,24 +209,24 @@ struct Button {
 
 // Buttons declaration
 Button btns[] = {
-  { 2, &btns[1], BTN_TYPE::CLICK_DELAY_CLICK, 0, 0, false, 0, 1, ']' },                 // right blinker
-  { 3, &btns[0], BTN_TYPE::CLICK_DELAY_CLICK, 0, 0, false, 0, 1, '[' },                 // left blinker
-  { 4, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, 'k' },                 // high beam (pull)
-  { 5, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, 'k' },                 // high beam (push)
-  { 0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'p' },                     // wipers forward
-  { 7, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'f' },                     // wipers back
-  { 8, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, 'f' },                            // wiper speed 1
-  { 9, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, 'f' },                            // wiper speed 2
-  { 1, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, 'f' },                            // wiper speed 3
-  { 14, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_UP_ARROW },     // shift up
-  { 15, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_DOWN_ARROW },   // shift down
-  { 16, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, ' ' },                    // Parking Brake
-  { A0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'e' },                    // Engine
-  { A1, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 't' },                    // Trailer
-  { A2, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'f' },                    // Hazard warning
-  { A3, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'o' },                    // Beacon
-  { 6, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_LEFT_ARROW },    // extra 1 (RX)
-  { 10, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_RIGHT_ARROW },  // extra 2 (TX)
+  { 2, &btns[1], BTN_TYPE::CLICK_DELAY_CLICK, 0, 0, false, 0, 1, ']' },                 //[0] right blinker
+  { 3, &btns[0], BTN_TYPE::CLICK_DELAY_CLICK, 0, 0, false, 0, 1, '[' },                 //[1] left blinker
+  { 4, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, 'k' },                 //[2] high beam (pull)
+  { 5, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, 'k' },                 //[3] high beam (push)
+  { 0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, WIPER_FORWARD },           //[4] wipers forward
+  { 7, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, WIPER_BACK },              //[5] wipers back
+  { 8, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[6] wiper speed 1
+  { 9, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[7] wiper speed 2
+  { 1, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[8] wiper speed 3
+  { 14, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_UP_ARROW },     //[9] shift up
+  { 15, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_DOWN_ARROW },   //[10] shift down
+  { 16, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, ' ' },                    //[11] Parking Brake
+  { A0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'e' },                    //[12] Engine
+  { A1, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 't' },                    //[13] Trailer
+  { A2, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'f' },                    //[14] Hazard warning
+  { A3, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'o' },                    //[15] Beacon
+  { 6, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_LEFT_ARROW },    //[16] extra 1 (RX)
+  { 10, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_RIGHT_ARROW },  //[17] extra 2 (TX)
 };
 
 // Initialization
