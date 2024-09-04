@@ -220,7 +220,7 @@ Button btns[] = {
   { 1, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[8] wiper speed 3
   { 14, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_UP_ARROW },     //[9] shift up
   { 15, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_DOWN_ARROW },   //[10] shift down
-  { 16, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, ' ' },                    //[11] Parking Brake
+  { 16, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, ' ' },                //[11] Parking Brake
   { A0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'e' },                    //[12] Engine
   { A1, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 't' },                    //[13] Trailer
   { A2, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'f' },                    //[14] Hazard warning
