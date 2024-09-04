@@ -1,7 +1,7 @@
 /// Joystick or Keyboard for Euro Truck Simulator 2 / American Truck Simulator
 /// Based on Arduino Pro Micro
 /// Programmer: USBTinyISP
-/// Board: Arduino Leonardo gSender
+/// Board: Arduino Leonardo
 /// libraries:
 /// ArduinoJoystickLibrary
 /// https://github.com/MHeironimus/ArduinoJoystickLibrary
@@ -12,6 +12,7 @@
 // Note: Pins are grounded when they are pressed
 
 #define USE_KEYBOARD  // comment this line if u want act as Joystick
+//#define ENABLE_WIPER_SPEED_BTNS  // Uncomment this line to enable joystick use wipers speed buttons as separate buttons too (for assetto corsa for example)
 
 enum BTN_TYPE { ACTUAL_PUSH_STATE,
                 CLICK_DELAY_CLICK,
@@ -184,7 +185,6 @@ struct Button {
             if (millis() - _wiperLastTime >= SHORT_PUSH_MS) {
               byte activeSpeed = _pWiperButtons[0]->buttonState ? 1 : _pWiperButtons[1]->buttonState ? 2
                                                                     : _pWiperButtons[2]->buttonState ? 3
-
                                                                                                      : 0;
               if (_wiperSpeed < activeSpeed)
                 while (_wiperSpeed < activeSpeed) {
@@ -200,6 +200,9 @@ struct Button {
           } else if (lastButtonState != buttonState) {
             lastButtonState = buttonState;
             _wiperLastTime = millis();
+#if defined(ENABLE_WIPER_SPEED_BTNS) && !defined(USE_KEYBOARD)
+            SET_BUTTON(key, buttonState);
+#endif
           }
         }
         break;
@@ -218,15 +221,15 @@ Button btns[] = {
   { 8, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[6] wiper speed 1
   { 9, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[7] wiper speed 2
   { 1, NULL, BTN_TYPE::USER_FUNC1, 0, 0, false, 0, 1, WIPER_BACK },                     //[8] wiper speed 3
-  { 14, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_UP_ARROW },     //[9] shift up
-  { 15, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_DOWN_ARROW },   //[10] shift down
-  { 16, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, ' ' },                //[11] Parking Brake
-  { A0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'e' },                    //[12] Engine
+  { 14, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_LEFT_ARROW },   //[9] Left Window Down
+  { 15, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_DOWN_ARROW },   //[10] Left Window UP
+  { 6, NULL, BTN_TYPE::CLICK_ON_PUSH_RELEASE, 0, 0, false, 0, 1, ' ' },                 //[11] Parking Brake
+  { A0, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_RIGHT_ARROW },  //[12] Right Window Down
+  { 10, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_UP_ARROW },     //[17] Right Window Up
   { A1, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 't' },                    //[13] Trailer
   { A2, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'f' },                    //[14] Hazard warning
   { A3, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'o' },                    //[15] Beacon
-  { 6, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_LEFT_ARROW },    //[16] extra 1 (RX)
-  { 10, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, (char)KEY_RIGHT_ARROW },  //[17] extra 2 (TX)
+  { 16, NULL, BTN_TYPE::ACTUAL_PUSH_STATE, 0, 0, false, 0, 1, 'e' },                    //[16] extra 1 (RX)
 };
 
 // Initialization
