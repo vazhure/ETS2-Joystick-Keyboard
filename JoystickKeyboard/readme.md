@@ -13,7 +13,7 @@ Based on the **Arduino Pro Micro** (ATmega32U4), this project features advanced 
 
 ## ⚙️ 1. Mode Selection: Keyboard vs. Joystick
 
-The firmware supports two distinct operating modes. You can switch between them by editing a single line at the top of the `ETS2_Controller.ino` file.
+The firmware supports two distinct operating modes. You can switch between them by editing a single line at the top of the `JoystickKeyboard.ino` file.
 
 ### ⌨️ Keyboard Mode (Default)
 - **How to enable:** Ensure `#define USE_KEYBOARD` is **uncommented**.
